@@ -186,5 +186,26 @@ export async function apiPostForm(path, formData, config = {}) {
   )
 }
 
+/**
+ * Binary GET (e.g. PDF export). Returns { blob, filename, contentType }.
+ * Uses the same auth/refresh interceptors as JSON helpers.
+ */
+export async function apiGetBlob(path, config = {}) {
+  const response = await apiClient.get(path, {
+    ...config,
+    responseType: 'blob',
+    // PDF generation can exceed the default JSON timeout.
+    timeout: config.timeout ?? 60000,
+  })
+  const disposition = response.headers?.['content-disposition'] || ''
+  const match = /filename="?([^"]+)"?/i.exec(disposition)
+  const filename = match?.[1] || null
+  return {
+    blob: response.data,
+    filename,
+    contentType: response.headers?.['content-type'] || '',
+  }
+}
+
 export { apiClient }
 export default apiClient

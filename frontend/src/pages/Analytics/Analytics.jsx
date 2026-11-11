@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { ChartColumnIncreasing } from 'lucide-react'
 import { useHabits } from '../../context/HabitContext'
 import { resolveDateRange } from '../../utils/analyticsCalculations'
@@ -12,7 +12,20 @@ import CategoryAnalytics from '../../components/analytics/CategoryAnalytics'
 import TrendsAnalytics from '../../components/analytics/TrendsAnalytics'
 import InsightsAnalytics from '../../components/analytics/InsightsAnalytics'
 import EmptyState from '../../components/common/EmptyState'
+import PDFExport, { PDFExportButton } from '../../components/reports/PDFExport'
 import './Analytics.css'
+
+function toIsoDate(value) {
+  if (!value) return ''
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value)) {
+    return value.slice(0, 10)
+  }
+  try {
+    return new Date(value).toISOString().slice(0, 10)
+  } catch {
+    return ''
+  }
+}
 
 function Analytics() {
   const { selectedDate, setSelectedDate, activeHabits } = useHabits()
@@ -21,8 +34,17 @@ function Analytics() {
   const [range, setRange] = useState(() =>
     resolveDateRange('thisMonth', selectedDate || new Date())
   )
+  const [exportOpen, setExportOpen] = useState(false)
 
   const analytics = useAnalyticsPage(range)
+
+  const exportDefaults = useMemo(
+    () => ({
+      startDate: toIsoDate(range?.start || range?.startDate),
+      endDate: toIsoDate(range?.end || range?.endDate),
+    }),
+    [range]
+  )
 
   return (
     <div className="analytics-page">
@@ -43,9 +65,20 @@ function Analytics() {
             onChange={setRange}
             anchorDate={selectedDate}
           />
+          <PDFExportButton onClick={() => setExportOpen(true)} />
           <PageHeaderTools showDate={false} />
         </div>
       </header>
+
+      {exportOpen && (
+        <PDFExport
+          key={`${exportDefaults.startDate}_${exportDefaults.endDate}`}
+          open={exportOpen}
+          onClose={() => setExportOpen(false)}
+          defaultStartDate={exportDefaults.startDate}
+          defaultEndDate={exportDefaults.endDate}
+        />
+      )}
 
       <AnalyticsTabs active={tab} onChange={setTab} />
 

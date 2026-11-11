@@ -6,6 +6,7 @@ import {
   BarChart3,
   Target,
   BookOpen,
+  Sparkles,
   Settings,
   X,
 } from 'lucide-react'
@@ -20,6 +21,7 @@ const navItems = [
   { to: '/analytics', label: 'Analytics', icon: BarChart3 },
   { to: '/goals', label: 'Goals', icon: Target },
   { to: '/journal', label: 'Journal', icon: BookOpen },
+  { to: '/ai-insights', label: 'AI Insights', icon: Sparkles },
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
 

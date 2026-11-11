@@ -6,6 +6,7 @@ from app.models.journal import JournalEntry, JournalEntryTag
 from app.models.achievement import UserAchievement
 from app.models.notification import Notification
 from app.models.refresh_token import RefreshToken
+from app.models.google_calendar import GoogleCalendarConnection, HabitGoogleEvent
 
 __all__ = [
     "User",
@@ -19,4 +20,6 @@ __all__ = [
     "UserAchievement",
     "Notification",
     "RefreshToken",
+    "GoogleCalendarConnection",
+    "HabitGoogleEvent",
 ]

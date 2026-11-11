@@ -351,6 +351,45 @@ All `/api/v1/analytics*` routes require authentication. Values are **calculated*
 
 Rules: future/today incomplete → pending; past incomplete → missed; unscheduled ignored; archived habits excluded from active aggregates; empty datasets return zeros.
 
+## Google Calendar
+
+OAuth 2.0 integration syncs active habits to the user's primary Google Calendar.
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | `/api/v1/calendar/google/status` | Connection status (no tokens) |
+| GET | `/api/v1/calendar/google/connect` | Returns Google `authorization_url` |
+| GET | `/api/v1/calendar/google/callback` | OAuth callback → redirects to frontend |
+| POST | `/api/v1/calendar/google/sync` | Idempotent habit → event sync |
+| POST | `/api/v1/calendar/google/disconnect` | Revoke local connection + best-effort event cleanup |
+| GET | `/api/v1/calendar/google/events` | List mapped events |
+| DELETE | `/api/v1/calendar/google/events/{event_id}` | Delete one mapped event |
+
+Requires `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`, and `TOKEN_ENCRYPTION_KEY` (Fernet). Tokens are encrypted at rest and never returned in API JSON. UI: **Settings → Google Calendar**.
+
+## PDF progress export
+
+Authenticated users can download a multi-section **Personal Progress Report** PDF (ReportLab).
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | `/api/v1/reports/progress/pdf` | Stream PDF (`start_date`, `end_date` required, `YYYY-MM-DD`) |
+
+- Uses existing analytics / calendar / goals / achievements services (no duplicated scheduling math).
+- JWT required; data is scoped to the current user only.
+- Generated **in memory** (not stored on disk).
+- Does **not** call Gemini; AI Insights section is omitted.
+- Dependency: `reportlab` (see `requirements.txt`). Frontend: Analytics → **Export Report**.
+
+Example:
+
+```http
+GET /api/v1/reports/progress/pdf?start_date=2026-11-01&end_date=2026-11-30
+Authorization: Bearer <access_token>
+```
+
+Response: `Content-Type: application/pdf` with `Content-Disposition: attachment; filename="HabitHero_Progress_Report_…pdf"`.
+
 ## Goals
 
 All `/api/v1/goals*` routes require authentication and are scoped to the current user. Progress and status are **computed** (not stored columns) from linked habit check-ins using Stage 6 scheduling rules.
@@ -425,6 +464,7 @@ Additive migration: `c3f9a1b2d4e5_add_notifications_and_prefs`.
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/api/v1/health` | Health check |
+| GET | `/api/v1/reports/progress/pdf` | Progress PDF download |
 
 ## Testing
 
@@ -456,7 +496,7 @@ With the server running:
 - ReDoc: http://127.0.0.1:8000/redoc
 - OpenAPI JSON: http://127.0.0.1:8000/openapi.json
 
-Tags: **auth**, **users**, **habits**, **checkins**, **calendar**, **analytics**, **goals**, **achievements**, **journal**, **notifications**, **health**. Use **Authorize** with a Bearer access token for protected routes.
+Tags: **auth**, **users**, **habits**, **checkins**, **calendar**, **analytics**, **goals**, **achievements**, **journal**, **notifications**, **reports**, **health**. Use **Authorize** with a Bearer access token for protected routes.
 
 ## Project layout
 

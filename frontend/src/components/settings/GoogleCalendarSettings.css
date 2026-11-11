@@ -1,0 +1,55 @@
+.google-cal-settings__head h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+}
+
+.google-cal-settings__head p {
+  margin: 0 0 12px;
+  color: var(--secondary-text);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  max-width: 40rem;
+}
+
+.google-cal-settings__note {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, #ca8a04 12%, transparent);
+  border: 1px solid color-mix(in srgb, #ca8a04 35%, transparent);
+  font-size: 0.9rem;
+}
+
+.google-cal-settings__status {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px 16px;
+  margin: 0 0 14px;
+}
+
+.google-cal-settings__status dt {
+  font-size: 0.78rem;
+  color: var(--secondary-text);
+  margin-bottom: 2px;
+}
+
+.google-cal-settings__status dd {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--primary-text);
+}
+
+.google-cal-settings__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.google-cal-settings__actions .btn-primary,
+.google-cal-settings__actions .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

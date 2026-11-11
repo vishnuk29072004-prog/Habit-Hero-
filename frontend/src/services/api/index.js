@@ -12,6 +12,7 @@ export {
   apiPut,
   apiDelete,
   apiPostForm,
+  apiGetBlob,
 } from './apiClient'
 
 export { ApiError, isApiError, toApiError } from './apiError'
@@ -73,6 +74,16 @@ export {
   toJournalListParams,
 } from './journalMappers'
 export { notificationApi } from './notificationApi'
+export { aiApi } from './aiApi'
+export {
+  mapHabitSuggestionFromApi,
+  mapHabitSuggestionsResponse,
+  suggestionToHabitPayload,
+  toMoodAnalysisPayload,
+  mapMoodAnalysisFromApi,
+} from './aiMappers'
+export { reportApi, toProgressPdfParams } from './reportApi'
+export { googleCalendarApi } from './googleCalendarApi'
 export {
   formatNotificationTime,
   mapNotificationFromApi,

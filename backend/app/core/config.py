@@ -37,6 +37,21 @@ class Settings(BaseSettings):
     notifications_scheduler_enabled: bool = False
     notifications_scheduler_interval_seconds: int = 900
 
+    # Google Gemini (AI features). Key must never leave the backend.
+    gemini_api_key: str = Field(default="")
+    gemini_model: str = Field(default="gemini-3.8-flash")
+    gemini_timeout_seconds: float = Field(default=90.0, ge=5.0, le=180.0)
+
+    # Google Calendar OAuth (backend-only). Never expose to the frontend.
+    google_client_id: str = Field(default="")
+    google_client_secret: str = Field(default="")
+    google_redirect_uri: str = Field(
+        default="http://127.0.0.1:8000/api/v1/calendar/google/callback"
+    )
+    # Fernet key (url-safe base64 32-byte). Required to store OAuth tokens.
+    token_encryption_key: str = Field(default="")
+    frontend_app_url: str = Field(default="http://127.0.0.1:5173")
+
     @field_validator("api_v1_prefix")
     @classmethod
     def normalize_prefix(cls, value: str) -> str:
@@ -52,6 +67,41 @@ class Settings(BaseSettings):
         if not value:
             raise ValueError("SECRET_KEY must not be empty")
         return value
+
+    @field_validator("gemini_api_key")
+    @classmethod
+    def strip_gemini_key(cls, value: str) -> str:
+        return (value or "").strip()
+
+    @field_validator("gemini_model")
+    @classmethod
+    def normalize_gemini_model(cls, value: str) -> str:
+        cleaned = (value or "").strip()
+        return cleaned or "gemini-3.8-flash"
+
+    @property
+    def gemini_configured(self) -> bool:
+        return bool(self.gemini_api_key)
+
+    @field_validator(
+        "google_client_id",
+        "google_client_secret",
+        "google_redirect_uri",
+        "token_encryption_key",
+        "frontend_app_url",
+    )
+    @classmethod
+    def strip_google_fields(cls, value: str) -> str:
+        return (value or "").strip()
+
+    @property
+    def google_calendar_configured(self) -> bool:
+        return bool(
+            self.google_client_id
+            and self.google_client_secret
+            and self.google_redirect_uri
+            and self.token_encryption_key
+        )
 
     @property
     def cors_origins_list(self) -> List[str]:

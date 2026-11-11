@@ -1,0 +1,131 @@
+.ai-insights-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 8px;
+}
+
+.ai-insights-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ai-insights-page__title {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ai-insights-page__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--light-blue);
+  color: var(--primary-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ai-insights-page__header h1 {
+  font-size: clamp(1.9rem, 2.5vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--primary-text);
+  margin-bottom: 6px;
+}
+
+.ai-insights-page__header p {
+  color: var(--secondary-text);
+  font-size: 0.95rem;
+  max-width: 36rem;
+  margin: 0;
+}
+
+.ai-insights-overview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 20px;
+}
+
+.ai-insights-overview__copy {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.ai-insights-overview__copy h2 {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+  font-weight: 750;
+  color: var(--primary-text);
+}
+
+.ai-insights-overview__copy > p {
+  margin: 0 0 14px;
+  color: var(--secondary-text);
+  font-size: 0.95rem;
+  max-width: 40rem;
+  line-height: 1.45;
+}
+
+.ai-insights-overview__capabilities {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ai-insights-overview__capabilities li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--primary-text);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.ai-insights-overview__capabilities li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--primary-blue);
+}
+
+.ai-insights-overview__shortcuts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.ai-insights-overview__shortcuts .btn-primary,
+.ai-insights-overview__shortcuts .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.ai-insights-page__section {
+  scroll-margin-top: 16px;
+}
+
+@media (max-width: 720px) {
+  .ai-insights-overview__shortcuts {
+    width: 100%;
+  }
+
+  .ai-insights-overview__shortcuts .btn-primary,
+  .ai-insights-overview__shortcuts .btn-secondary {
+    width: 100%;
+  }
+}

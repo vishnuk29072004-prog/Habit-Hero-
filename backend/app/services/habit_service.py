@@ -230,6 +230,16 @@ def _habit_has_history(db: Session, habit_id: str) -> bool:
     return bool(has_journal)
 
 
+def _cleanup_google_mapping(db: Session, user: User, habit_id: str) -> None:
+    try:
+        from app.services import google_calendar_service
+
+        google_calendar_service.cleanup_habit_event(db, user, habit_id)
+    except Exception:
+        # Habit mutations must not fail if Google cleanup fails.
+        pass
+
+
 def delete_habit(db: Session, user: User, habit_id: str) -> tuple[Habit | None, str]:
     """Hard-delete when no history; otherwise archive to preserve records.
 
@@ -243,10 +253,12 @@ def delete_habit(db: Session, user: User, habit_id: str) -> tuple[Habit | None, 
             db.add(habit)
             db.commit()
             db.refresh(habit)
+        _cleanup_google_mapping(db, user, habit_id)
         return habit, "archived"
 
     db.delete(habit)
     db.commit()
+    _cleanup_google_mapping(db, user, habit_id)
     return None, "deleted"
 
 
@@ -262,6 +274,7 @@ def archive_habit(db: Session, user: User, habit_id: str) -> Habit:
     db.add(habit)
     db.commit()
     db.refresh(habit)
+    _cleanup_google_mapping(db, user, habit_id)
     return habit
 
 

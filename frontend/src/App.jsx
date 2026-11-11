@@ -9,6 +9,7 @@ import Calendar from './pages/Calendar/Calendar'
 import Analytics from './pages/Analytics/Analytics'
 import Goals from './pages/Goals/Goals'
 import Journal from './pages/Journal/Journal'
+import AIInsights from './pages/AIInsights/AIInsights'
 import Settings from './pages/Settings/Settings'
 import Login from './pages/Login/Login'
 import Signup from './pages/Signup/Signup'
@@ -37,6 +38,7 @@ function App() {
               <Route path="analytics" element={<Analytics />} />
               <Route path="goals" element={<Goals />} />
               <Route path="journal" element={<Journal />} />
+              <Route path="ai-insights" element={<AIInsights />} />
               <Route path="settings" element={<Settings />} />
               <Route path="profile" element={<Profile />} />
               <Route path="*" element={<Navigate to="/" replace />} />

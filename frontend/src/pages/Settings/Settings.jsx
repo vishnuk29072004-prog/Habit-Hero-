@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { STORAGE_KEY } from '../../data/mockData'
 import Loader from '../../components/common/Loader'
+import GoogleCalendarSettings from '../../components/settings/GoogleCalendarSettings'
 import './Settings.css'
 
 const REMINDER_FIELDS = [
@@ -167,6 +168,8 @@ function Settings() {
           </form>
         )}
       </section>
+
+      <GoogleCalendarSettings />
 
       <section className="card settings-page__card">
         <h2>Data</h2>

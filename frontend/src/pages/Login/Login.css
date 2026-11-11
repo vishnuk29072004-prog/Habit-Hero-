@@ -1,0 +1,4 @@
+/* Login page uses AuthLayout shared styles. */
+.login-page {
+  display: contents;
+}

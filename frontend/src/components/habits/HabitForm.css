@@ -1,0 +1,104 @@
+.habit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.habit-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--primary-text);
+}
+
+.habit-form input,
+.habit-form select,
+.habit-form textarea {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--primary-text);
+  background: #fff;
+}
+
+.habit-form input,
+.habit-form select {
+  height: 44px;
+}
+
+.habit-form textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.habit-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.habit-form__error {
+  background: #fff1f0;
+  color: #b42318;
+  border: 1px solid #ffd4d0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.habit-form__success {
+  background: #ecfdf3;
+  color: #027a48;
+  border: 1px solid #abefc6;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.habit-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.habit-form .btn-primary,
+.habit-form .btn-secondary {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.habit-form .btn-primary {
+  background: var(--primary-blue);
+  color: #fff;
+}
+
+.habit-form .btn-primary:disabled,
+.habit-form .btn-secondary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.habit-form .btn-secondary {
+  background: var(--light-blue);
+  color: var(--primary-blue);
+}
+
+@media (max-width: 520px) {
+  .habit-form__row {
+    grid-template-columns: 1fr;
+  }
+}

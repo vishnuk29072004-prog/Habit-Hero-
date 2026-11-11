@@ -1,0 +1,54 @@
+.completion-trend {
+  padding: 18px;
+  min-width: 0;
+}
+
+.completion-trend__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.completion-trend__head h2 {
+  font-size: var(--text-section);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.completion-trend__head p {
+  color: var(--secondary-text);
+  font-size: 0.85rem;
+}
+
+.completion-trend__filters {
+  display: inline-flex;
+  gap: 4px;
+  background: #f1f5ff;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.completion-trend__filters button {
+  border: none;
+  background: transparent;
+  height: 30px;
+  min-width: 42px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--secondary-text);
+  cursor: pointer;
+}
+
+.completion-trend__filters button.is-active {
+  background: var(--primary-blue);
+  color: #fff;
+}
+
+.completion-trend__chart {
+  height: 280px;
+}

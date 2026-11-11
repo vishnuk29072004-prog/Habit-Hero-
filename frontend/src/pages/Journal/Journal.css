@@ -1,0 +1,119 @@
+.journal-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.journal-page__banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  background: color-mix(in srgb, #dc2626 12%, transparent);
+  border: 1px solid color-mix(in srgb, #dc2626 35%, transparent);
+  color: var(--primary-text);
+}
+
+.journal-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.journal-page__title {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.journal-page__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--light-blue);
+  color: var(--primary-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.journal-page__header h1 {
+  font-size: clamp(1.9rem, 2.5vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--primary-text);
+  margin-bottom: 6px;
+}
+
+.journal-page__header p {
+  color: var(--secondary-text);
+  font-size: 0.95rem;
+  max-width: 36rem;
+}
+
+.journal-page__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  gap: 16px;
+  align-items: start;
+}
+
+.journal-page__main {
+  min-width: 0;
+}
+
+.journal-page__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.journal-page__toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 60;
+  background: #0f172a;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 650;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 1100px) {
+  .journal-page__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .journal-page__aside {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .journal-page__aside .recent-entries {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .journal-page__header {
+    flex-direction: column;
+  }
+
+  .journal-page__aside {
+    grid-template-columns: 1fr;
+  }
+}

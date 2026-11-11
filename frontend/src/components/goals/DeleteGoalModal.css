@@ -1,0 +1,31 @@
+.delete-goal-modal p {
+  color: var(--secondary-text);
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.delete-goal-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.delete-goal-modal .btn-secondary,
+.delete-goal-modal .btn-danger {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.delete-goal-modal .btn-secondary {
+  background: #eef2f7;
+  color: var(--primary-text);
+}
+
+.delete-goal-modal .btn-danger {
+  background: var(--danger-red);
+  color: #fff;
+}

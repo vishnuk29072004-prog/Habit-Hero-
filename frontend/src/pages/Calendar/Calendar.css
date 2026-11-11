@@ -1,0 +1,113 @@
+.calendar-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 8px;
+}
+
+.calendar-page__banner {
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  background: color-mix(in srgb, #dc2626 12%, transparent);
+  border: 1px solid color-mix(in srgb, #dc2626 35%, transparent);
+  color: var(--primary-text);
+}
+
+.calendar-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.calendar-page__title {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.calendar-page__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--light-blue);
+  color: var(--primary-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.calendar-page__header h1 {
+  font-size: clamp(1.9rem, 2.5vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--primary-text);
+  margin-bottom: 6px;
+}
+
+.calendar-page__header p {
+  color: var(--secondary-text);
+  font-size: 0.95rem;
+  max-width: 36rem;
+}
+
+.calendar-page__mid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.95fr) minmax(240px, 0.8fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.calendar-page__aside {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+@media (max-width: 1200px) {
+  .calendar-page__mid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+
+  .calendar-page__aside {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  .calendar-page__header {
+    flex-direction: column;
+  }
+
+  .calendar-page__header .page-header-tools {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .calendar-page__mid {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-page__aside {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-page__title {
+    width: 100%;
+  }
+
+  .calendar-page__icon {
+    width: 42px;
+    height: 42px;
+  }
+}

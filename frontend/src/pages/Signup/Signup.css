@@ -1,0 +1,4 @@
+/* Signup page uses AuthLayout shared styles. */
+.signup-page {
+  display: contents;
+}

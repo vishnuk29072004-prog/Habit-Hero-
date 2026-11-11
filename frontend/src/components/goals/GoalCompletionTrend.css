@@ -1,0 +1,20 @@
+.goal-completion-trend {
+  padding: 18px;
+  min-width: 0;
+}
+
+.goal-completion-trend__head h2 {
+  font-size: var(--text-section);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.goal-completion-trend__head p {
+  color: var(--secondary-text);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.goal-completion-trend__chart {
+  height: 240px;
+}

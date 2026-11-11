@@ -1,0 +1,147 @@
+.habit-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #fff;
+  min-height: 100%;
+}
+
+.habit-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.habit-card__check {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #c9d8f5;
+  background: #fff;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.habit-card__check.is-done {
+  background: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+.habit-card__check:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.habit-card__archived {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--warning-orange);
+  background: #fff7ed;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.habit-card__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--light-blue);
+  color: var(--primary-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.habit-card h3 {
+  font-size: 1.02rem;
+  font-weight: 750;
+  color: var(--primary-text);
+}
+
+.habit-card__desc {
+  color: var(--secondary-text);
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.habit-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.habit-card__badge {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.habit-card__freq {
+  color: var(--secondary-text);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.habit-card__progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.habit-card__bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: #e8effc;
+  overflow: hidden;
+}
+
+.habit-card__bar span {
+  display: block;
+  height: 100%;
+  background: var(--primary-blue);
+  border-radius: inherit;
+}
+
+.habit-card__progress em {
+  font-style: normal;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.habit-card__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.habit-card__actions button {
+  flex: 1;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--primary-blue);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.habit-card__actions button.is-danger {
+  color: var(--danger-red);
+}

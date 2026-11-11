@@ -1,0 +1,85 @@
+.calendar-legend {
+  padding: 18px 16px;
+}
+
+.calendar-legend h2 {
+  font-size: var(--text-section);
+  font-weight: 750;
+  color: var(--primary-text);
+  margin-bottom: 14px;
+}
+
+.calendar-legend ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.calendar-legend li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.calendar-legend__swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+}
+
+.calendar-legend__swatch.is-today {
+  background: #fff0c2;
+  border-color: #111b3a;
+}
+
+.calendar-legend__swatch.is-completed {
+  background: #dcebff;
+  color: #fff;
+}
+
+.calendar-legend__swatch.is-completed svg {
+  background: var(--success-green);
+  border-radius: 50%;
+  padding: 1px;
+  box-sizing: content-box;
+}
+
+.calendar-legend__swatch.is-partial {
+  background: #f0f6ff;
+}
+
+.calendar-legend__partial {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-blue);
+  background: conic-gradient(var(--primary-blue) 0 40%, transparent 40% 100%);
+}
+
+.calendar-legend__swatch.is-upcoming {
+  background: #eaf2ff;
+}
+
+.calendar-legend__swatch.is-pastEmpty {
+  background: #eef1f6;
+}
+
+.calendar-legend strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary-text);
+  margin-bottom: 2px;
+}
+
+.calendar-legend p {
+  font-size: 0.8rem;
+  color: var(--secondary-text);
+  line-height: 1.35;
+}

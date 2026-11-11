@@ -1,0 +1,28 @@
+.weekly-progress {
+  padding: 20px 18px 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.weekly-progress__header h2 {
+  font-size: var(--text-section);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.weekly-progress__chart {
+  flex: 1;
+  min-height: 200px;
+  width: 100%;
+}
+
+.weekly-progress__tooltip {
+  background: #0b4fcc;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(11, 79, 204, 0.28);
+}

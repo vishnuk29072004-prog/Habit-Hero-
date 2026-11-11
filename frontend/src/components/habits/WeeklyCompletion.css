@@ -1,0 +1,28 @@
+.weekly-completion {
+  padding: 18px 16px 12px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.weekly-completion__header h2 {
+  font-size: var(--text-section);
+  font-weight: 750;
+  color: var(--primary-text);
+  margin-bottom: 8px;
+}
+
+.weekly-completion__chart {
+  flex: 1;
+  min-height: 220px;
+  width: 100%;
+}
+
+.weekly-completion__tooltip {
+  background: var(--primary-text);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 8px;
+}

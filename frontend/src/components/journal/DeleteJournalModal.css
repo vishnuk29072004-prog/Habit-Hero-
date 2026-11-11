@@ -1,0 +1,31 @@
+.delete-journal-modal p {
+  color: var(--secondary-text);
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.delete-journal-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.delete-journal-modal .btn-secondary,
+.delete-journal-modal .btn-danger {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.delete-journal-modal .btn-secondary {
+  background: #eef2f7;
+  color: var(--primary-text);
+}
+
+.delete-journal-modal .btn-danger {
+  background: var(--danger-red);
+  color: #fff;
+}

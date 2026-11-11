@@ -1,0 +1,114 @@
+.date-picker {
+  width: min(300px, 86vw);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  padding: 14px;
+  animation: date-picker-in 0.18s ease;
+}
+
+.date-picker__toolbar,
+.date-picker__month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.date-picker__toolbar span,
+.date-picker__month-nav strong {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary-text);
+}
+
+.date-picker__toolbar button,
+.date-picker__month-nav button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--primary-text);
+}
+
+.date-picker__toolbar button:hover,
+.date-picker__month-nav button:hover {
+  background: var(--light-blue);
+}
+
+.date-picker__weekdays,
+.date-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.date-picker__weekdays {
+  margin-bottom: 6px;
+}
+
+.date-picker__weekdays span {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--secondary-text);
+}
+
+.date-picker__day {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--primary-text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.date-picker__day.is-outside {
+  color: #b0bac9;
+}
+
+.date-picker__day.is-today {
+  background: var(--light-blue);
+}
+
+.date-picker__day.is-selected {
+  background: var(--primary-blue);
+  color: #fff;
+}
+
+.date-picker__day:hover:not(.is-selected) {
+  background: #f1f5ff;
+}
+
+.date-picker__today {
+  width: 100%;
+  margin-top: 10px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: var(--light-blue);
+  color: var(--primary-blue);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@keyframes date-picker-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

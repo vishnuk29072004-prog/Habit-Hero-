@@ -1,0 +1,122 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-page header h1 {
+  font-size: var(--text-display);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.settings-page header p {
+  color: var(--secondary-text);
+}
+
+.settings-page__card {
+  padding: 22px 20px;
+  max-width: 640px;
+}
+
+.settings-page__card h2 {
+  font-size: var(--text-section);
+  margin-bottom: 8px;
+}
+
+.settings-page__card p {
+  color: var(--secondary-text);
+  margin-bottom: 16px;
+  line-height: 1.45;
+}
+
+.settings-page__alert {
+  max-width: 640px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.settings-page__alert.is-error {
+  background: #fff1f0;
+  color: var(--danger-red);
+  border: 1px solid #ffd4d0;
+}
+
+.settings-page__alert.is-success {
+  background: #f0fff4;
+  color: #1f7a3f;
+  border: 1px solid #b7ebc6;
+}
+
+.settings-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-page__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.settings-page__field input[type='number'] {
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  padding: 0 12px;
+  font: inherit;
+  max-width: 160px;
+}
+
+.settings-page__fieldset {
+  border: 1px solid #eef0f3;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.settings-page__fieldset legend {
+  font-weight: 700;
+  padding: 0 6px;
+}
+
+.settings-page__check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: var(--secondary-text);
+}
+
+.settings-page__check input {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-primary,
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--primary-blue);
+  color: #fff;
+}
+
+.btn-danger {
+  background: #fff1f0;
+  color: var(--danger-red);
+  border: 1px solid #ffd4d0;
+}

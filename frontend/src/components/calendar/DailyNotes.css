@@ -1,0 +1,56 @@
+.daily-notes {
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.daily-notes__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.daily-notes__header h3 {
+  font-size: 1rem;
+  font-weight: 750;
+  color: var(--primary-text);
+}
+
+.daily-notes__header button {
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--primary-blue);
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.daily-notes__text {
+  color: var(--primary-text);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.daily-notes__empty {
+  color: var(--secondary-text);
+  font-size: 0.88rem;
+}
+
+.daily-notes__input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--primary-text);
+  resize: vertical;
+  min-height: 84px;
+  background: #fff;
+}

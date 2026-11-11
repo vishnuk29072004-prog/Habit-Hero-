@@ -1,0 +1,47 @@
+.navbar {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.navbar.has-profile {
+  display: flex;
+}
+
+.navbar__menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card-bg);
+  color: var(--primary-text);
+  cursor: pointer;
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.navbar__menu:hover {
+  background: var(--light-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar__spacer {
+  flex: 1;
+}
+
+.navbar__profile {
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    display: flex;
+  }
+
+  .navbar__menu {
+    display: inline-flex;
+  }
+}

@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.env
+habit_hero.db
+habit_hero.db-*
+uploads/
+*.log
+.coverage
+htmlcov/

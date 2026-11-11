@@ -1,0 +1,82 @@
+.goal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.goal-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--secondary-text);
+}
+
+.goal-form input,
+.goal-form select,
+.goal-form textarea {
+  height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0 12px;
+  font: inherit;
+  color: var(--primary-text);
+  background: #fff;
+}
+
+.goal-form textarea {
+  height: auto;
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+.goal-form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.goal-form__error {
+  color: #b42318;
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+.goal-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.goal-form .btn-primary,
+.goal-form .btn-secondary {
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.goal-form .btn-primary {
+  background: var(--primary-blue);
+  color: #fff;
+}
+
+.goal-form .btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.goal-form .btn-secondary {
+  background: #eef2f7;
+  color: var(--primary-text);
+}
+
+@media (max-width: 640px) {
+  .goal-form__row {
+    grid-template-columns: 1fr;
+  }
+}

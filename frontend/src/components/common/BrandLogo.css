@@ -1,0 +1,34 @@
+.brand-logo-link {
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.28em;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  user-select: none;
+}
+
+.brand-logo__habit {
+  color: var(--primary-blue);
+}
+
+.brand-logo__hero {
+  color: var(--primary-text);
+}
+
+.brand-logo--sm {
+  font-size: 1.15rem;
+}
+
+.brand-logo--md {
+  font-size: 1.45rem;
+}
+
+.brand-logo--lg {
+  font-size: 1.85rem;
+}

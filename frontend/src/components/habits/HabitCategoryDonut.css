@@ -1,0 +1,85 @@
+.habit-category-donut {
+  padding: 18px 16px;
+  min-height: 300px;
+}
+
+.habit-category-donut__header h2 {
+  font-size: var(--text-section);
+  font-weight: 750;
+  color: var(--primary-text);
+  margin-bottom: 12px;
+}
+
+.habit-category-donut__content {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 12px;
+  align-items: center;
+  min-height: 240px;
+}
+
+.habit-category-donut__chart {
+  position: relative;
+  height: 220px;
+}
+
+.habit-category-donut__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.habit-category-donut__center strong {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1;
+}
+
+.habit-category-donut__center span {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--secondary-text);
+  font-weight: 600;
+}
+
+.habit-category-donut__legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.habit-category-donut__legend li {
+  display: grid;
+  grid-template-columns: 12px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.habit-category-donut__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.habit-category-donut__label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--primary-text);
+}
+
+.habit-category-donut__value {
+  font-size: 0.88rem;
+  font-weight: 750;
+  color: var(--primary-text);
+}
+
+@media (max-width: 700px) {
+  .habit-category-donut__content {
+    grid-template-columns: 1fr;
+  }
+}

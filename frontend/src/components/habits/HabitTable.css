@@ -1,0 +1,169 @@
+.habit-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.habit-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.habit-table th {
+  text-align: left;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--secondary-text);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.habit-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #eef3fb;
+  vertical-align: middle;
+  font-size: 0.9rem;
+  color: var(--primary-text);
+}
+
+.habit-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.habit-table__check-col {
+  width: 48px;
+}
+
+.habit-table__check {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #c9d8f5;
+  background: #fff;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.habit-table__check.is-done {
+  background: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+.habit-table__check:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.habit-table__archived-mark {
+  color: var(--secondary-text);
+  padding-left: 8px;
+}
+
+.habit-table__habit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 180px;
+}
+
+.habit-table__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--light-blue);
+  color: var(--primary-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.habit-table__habit strong {
+  display: block;
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+.habit-table__habit p {
+  margin-top: 2px;
+  color: var(--secondary-text);
+  font-size: 0.78rem;
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.habit-table__badge {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.habit-table__progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 140px;
+}
+
+.habit-table__bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: #e8effc;
+  overflow: hidden;
+}
+
+.habit-table__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--primary-blue);
+}
+
+.habit-table__progress em {
+  font-style: normal;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary-text);
+  min-width: 36px;
+}
+
+.habit-table__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.habit-table__actions button {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--primary-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.habit-table__actions button.is-danger {
+  color: var(--danger-red);
+}
+
+.habit-table__actions button:hover {
+  background: var(--light-blue);
+}

@@ -1,0 +1,50 @@
+.progress-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.progress-page header h1 {
+  font-size: var(--text-display);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.progress-page header p {
+  color: var(--secondary-text);
+}
+
+.progress-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress-page__list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+}
+
+.progress-page__list strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.progress-page__list span {
+  color: var(--secondary-text);
+  font-size: var(--text-label);
+}
+
+.progress-page__list button {
+  height: 36px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 10px;
+  background: var(--light-blue);
+  color: var(--primary-blue);
+  font-weight: 700;
+  cursor: pointer;
+}

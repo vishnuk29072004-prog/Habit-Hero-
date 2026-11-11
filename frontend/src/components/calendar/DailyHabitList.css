@@ -1,0 +1,96 @@
+.daily-habit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.daily-habit-list__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fafcff;
+}
+
+.daily-habit-list__check {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #c9d8f5;
+  background: #fff;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.daily-habit-list__check.is-done {
+  background: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+.daily-habit-list__check:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.daily-habit-list__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: var(--light-blue);
+  color: var(--primary-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.daily-habit-list__body {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.daily-habit-list__body strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-text);
+}
+
+.daily-habit-list__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.daily-habit-list__badge.is-completed {
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+.daily-habit-list__badge.is-pending {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.daily-habit-list__badge.is-upcoming {
+  background: var(--light-blue);
+  color: var(--primary-blue);
+}

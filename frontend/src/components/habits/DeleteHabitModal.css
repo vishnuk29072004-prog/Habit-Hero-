@@ -1,0 +1,42 @@
+.delete-habit-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.delete-habit-modal p {
+  color: var(--secondary-text);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.delete-habit-modal strong {
+  color: var(--primary-text);
+}
+
+.delete-habit-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.delete-habit-modal .btn-secondary,
+.delete-habit-modal .btn-danger {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.delete-habit-modal .btn-secondary {
+  background: var(--light-blue);
+  color: var(--primary-blue);
+}
+
+.delete-habit-modal .btn-danger {
+  background: var(--danger-red);
+  color: #fff;
+}

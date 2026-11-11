@@ -83,7 +83,12 @@ Created/updated:
 
 ## G. GitHub
 
-See execution report for commit/push outcome. Must not include `.env`, `*.db`, `.venv`, `node_modules`, `dist`.
+| Item | Result |
+|------|--------|
+| Remote | `https://github.com/vishnuk29072004-prog/Habit-Hero-.git` |
+| Commit | `0e53191` — Add AI Insights, PDF export, and Google Calendar integration |
+| Push | **Succeeded** (`main` → `origin/main`) |
+| Excluded | `.env`, `*.db`, `.venv`, `node_modules`, `dist` (gitignored) |
 
 ---
 

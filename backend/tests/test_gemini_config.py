@@ -12,6 +12,7 @@ from app.services.gemini_service import (
     GeminiInvalidResponseError,
     GeminiNotConfiguredError,
     GeminiRateLimitError,
+    GeminiUnavailableError,
 )
 
 
@@ -120,19 +121,59 @@ def test_generate_text_rate_limit(monkeypatch):
     monkeypatch.setenv("GEMINI_API_KEY", "test-key-not-real")
     get_settings.cache_clear()
     cfg = Settings()
+    monkeypatch.setattr(gemini_service.time, "sleep", lambda _s: None)
 
     class RateLimitError(Exception):
         status_code = 429
 
     class FakeModels:
         def generate_content(self, model, contents):  # noqa: ARG002
-            raise RateLimitError("RESOURCE_EXHAUSTED: quota")
+            raise RateLimitError("RESOURCE_EXHAUSTED")
 
     class FakeClient:
         models = FakeModels()
 
     with pytest.raises(GeminiRateLimitError):
         gemini_service.generate_text("ping", app_settings=cfg, client=FakeClient())
+
+
+def test_generate_text_retries_transient_then_succeeds(monkeypatch):
+    monkeypatch.setenv("GEMINI_API_KEY", "test-key-not-real")
+    get_settings.cache_clear()
+    cfg = Settings()
+    monkeypatch.setattr(gemini_service.time, "sleep", lambda _s: None)
+    calls = {"n": 0}
+
+    class Transient(Exception):
+        status_code = 429
+
+    class FakeModels:
+        def generate_content(self, model, contents):  # noqa: ARG002
+            calls["n"] += 1
+            if calls["n"] < 2:
+                raise Transient("RESOURCE_EXHAUSTED")
+
+            class Resp:
+                text = "ok after retry"
+
+            return Resp()
+
+    class FakeClient:
+        models = FakeModels()
+
+    text = gemini_service.generate_text(
+        "ping", app_settings=cfg, client=FakeClient()
+    )
+    assert text == "ok after retry"
+    assert calls["n"] == 2
+
+
+def test_classify_daily_quota_no_transient_message():
+    err = gemini_service._classify_upstream_error(
+        Exception("429 exceeded your current quota for this project")
+    )
+    assert isinstance(err, GeminiRateLimitError)
+    assert "quota is exhausted" in str(err).lower()
 
 
 def test_generate_text_invalid_empty_response(monkeypatch):
@@ -183,3 +224,21 @@ def test_missing_key_on_generate(monkeypatch):
     cfg = Settings()
     with pytest.raises(GeminiNotConfiguredError):
         gemini_service.generate_text("ping", app_settings=cfg)
+
+
+def test_classify_deadline_exceeded():
+    err = gemini_service._classify_upstream_error(
+        Exception("504 DEADLINE_EXCEEDED. Deadline expired before operation could complete.")
+    )
+    assert isinstance(err, GeminiAPIError)
+    assert "timed out" in str(err).lower()
+
+
+def test_classify_high_demand_unavailable():
+    err = gemini_service._classify_upstream_error(
+        Exception(
+            "503 UNAVAILABLE. This model is currently experiencing high demand."
+        )
+    )
+    assert isinstance(err, GeminiUnavailableError)
+    assert "overloaded" in str(err).lower()

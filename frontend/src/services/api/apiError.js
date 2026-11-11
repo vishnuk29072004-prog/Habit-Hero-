@@ -29,11 +29,15 @@ export function toApiError(error) {
 
   if (error?.isAxiosError) {
     if (!error.response) {
+      const aborted = error.code === 'ECONNABORTED'
+      const url = String(error.config?.url || '')
+      const isAiRoute = url.includes('/ai/')
       return new ApiError({
-        message:
-          error.code === 'ECONNABORTED'
-            ? 'Request timed out. Please try again.'
-            : 'Unable to reach the server. Check your connection.',
+        message: aborted
+          ? isAiRoute
+            ? 'The AI request took too long. Gemini can need up to about 90 seconds — please try again.'
+            : 'Request timed out. Please try again.'
+          : 'Unable to reach the server. Check your connection.',
         status: null,
         code: error.code || 'NETWORK_ERROR',
         cause: error,
@@ -46,19 +50,59 @@ export function toApiError(error) {
       typeof Blob !== 'undefined' && payload instanceof Blob
         ? 'Unable to complete the download. Please try again.'
         : null
-    const message =
+    const status = error.response.status
+    const rawDetail = payload?.detail
+    const detailText =
+      typeof rawDetail === 'string'
+        ? rawDetail
+        : Array.isArray(rawDetail)
+          ? rawDetail
+              .map((item) =>
+                typeof item === 'string'
+                  ? item
+                  : item?.msg || item?.message || ''
+              )
+              .filter(Boolean)
+              .join(' ')
+          : null
+
+    let message =
       blobError ||
       (typeof payload?.message === 'string' && payload.message) ||
-      (typeof payload?.detail === 'string' && payload.detail) ||
+      detailText ||
       error.message ||
       'Request failed'
 
+    // Prefer explicit backend detail; refine generic labels by status.
+    if (status === 429) {
+      message =
+        detailText ||
+        'AI rate limit reached. Please wait a moment and try again.'
+    } else if (
+      status === 503 &&
+      typeof detailText === 'string' &&
+      detailText.toLowerCase().includes('google calendar')
+    ) {
+      message = detailText
+    } else if (
+      status === 503 &&
+      typeof detailText === 'string' &&
+      (detailText.toLowerCase().includes('overloaded') ||
+        detailText.toLowerCase().includes('high demand'))
+    ) {
+      message = detailText
+    } else if (status === 504) {
+      message =
+        detailText ||
+        'The AI request timed out waiting for Google Gemini. Please try again.'
+    }
+
     return new ApiError({
       message,
-      status: error.response.status,
-      detail: payload?.detail ?? null,
+      status,
+      detail: rawDetail ?? null,
       data: payload ?? null,
-      code: `HTTP_${error.response.status}`,
+      code: `HTTP_${status}`,
       cause: error,
     })
   }

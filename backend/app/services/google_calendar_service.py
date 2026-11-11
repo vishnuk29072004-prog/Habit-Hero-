@@ -45,11 +45,13 @@ def _utcnow_iso() -> str:
 def require_google_config(app_settings: Optional[Settings] = None) -> Settings:
     cfg = app_settings or get_settings()
     if not cfg.google_calendar_configured:
+        missing = cfg.google_calendar_missing_fields()
+        missing_txt = ", ".join(missing) if missing else "required Google env vars"
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail=(
-                "Google Calendar is not configured. Set GOOGLE_CLIENT_ID, "
-                "GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI, and TOKEN_ENCRYPTION_KEY."
+                "Google Calendar is not configured on the server. "
+                f"Missing or empty: {missing_txt}."
             ),
         )
     return cfg
@@ -230,8 +232,12 @@ def get_connection(db: Session, user: User) -> Optional[GoogleCalendarConnection
 def connection_status(db: Session, user: User) -> dict:
     cfg = get_settings()
     row = get_connection(db, user)
+    missing = cfg.google_calendar_missing_fields()
+    # Never include secret values — names of missing env vars only.
     return {
         "configured": cfg.google_calendar_configured,
+        "missing_config": missing,
+        "redirect_uri_configured": bool(cfg.google_redirect_uri),
         "connected": row is not None,
         "email": row.google_account_email if row else None,
         "calendar_id": row.calendar_id if row else None,

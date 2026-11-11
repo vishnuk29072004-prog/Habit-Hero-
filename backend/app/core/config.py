@@ -9,8 +9,9 @@ BACKEND_ROOT = Path(__file__).resolve().parents[2]
 
 
 class Settings(BaseSettings):
+    # Absolute env path so uvicorn cwd cannot skip backend/.env.
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=str(BACKEND_ROOT / ".env"),
         env_file_encoding="utf-8",
         case_sensitive=False,
         extra="ignore",
@@ -46,7 +47,7 @@ class Settings(BaseSettings):
     google_client_id: str = Field(default="")
     google_client_secret: str = Field(default="")
     google_redirect_uri: str = Field(
-        default="http://127.0.0.1:8000/api/v1/calendar/google/callback"
+        default="http://127.0.0.1:8010/api/v1/calendar/google/callback"
     )
     # Fernet key (url-safe base64 32-byte). Required to store OAuth tokens.
     token_encryption_key: str = Field(default="")
@@ -102,6 +103,19 @@ class Settings(BaseSettings):
             and self.google_redirect_uri
             and self.token_encryption_key
         )
+
+    def google_calendar_missing_fields(self) -> List[str]:
+        """Env var *names* that are blank (never returns secret values)."""
+        missing: List[str] = []
+        if not self.google_client_id:
+            missing.append("GOOGLE_CLIENT_ID")
+        if not self.google_client_secret:
+            missing.append("GOOGLE_CLIENT_SECRET")
+        if not self.google_redirect_uri:
+            missing.append("GOOGLE_REDIRECT_URI")
+        if not self.token_encryption_key:
+            missing.append("TOKEN_ENCRYPTION_KEY")
+        return missing
 
     @property
     def cors_origins_list(self) -> List[str]:

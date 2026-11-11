@@ -4,6 +4,21 @@ import { googleCalendarApi } from '../../services/api/googleCalendarApi'
 import Loader from '../common/Loader'
 import './GoogleCalendarSettings.css'
 
+function friendlyCalendarError(err, fallback) {
+  const raw = String(err?.message || fallback || '')
+  const lower = raw.toLowerCase()
+  if (
+    lower.includes('not configured') ||
+    lower.includes('missing or empty') ||
+    lower.includes('google_client') ||
+    lower.includes('token_encryption') ||
+    lower.includes('redirect_uri')
+  ) {
+    return 'Unable to connect to Google Calendar right now. Please try again later.'
+  }
+  return raw || fallback
+}
+
 function GoogleCalendarSettings() {
   const [status, setStatus] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -22,7 +37,11 @@ function GoogleCalendarSettings() {
     setLoading(true)
     refresh()
       .catch((err) => {
-        if (active) setError(err?.message || 'Unable to load Google Calendar status.')
+        if (active) {
+          setError(
+            friendlyCalendarError(err, 'Unable to load Google Calendar status.')
+          )
+        }
       })
       .finally(() => {
         if (active) setLoading(false)
@@ -51,7 +70,9 @@ function GoogleCalendarSettings() {
       if (!url) throw new Error('Missing Google authorization URL.')
       window.location.assign(url)
     } catch (err) {
-      setError(err?.message || 'Unable to start Google Calendar connection.')
+      setError(
+        friendlyCalendarError(err, 'Unable to start Google Calendar connection.')
+      )
       setBusy(false)
     }
   }
@@ -69,7 +90,7 @@ function GoogleCalendarSettings() {
       )
       await refresh()
     } catch (err) {
-      setError(err?.message || 'Sync failed.')
+      setError(friendlyCalendarError(err, 'Sync failed.'))
     } finally {
       setBusy(false)
     }
@@ -87,7 +108,7 @@ function GoogleCalendarSettings() {
       setMessage('Google Calendar disconnected.')
       await refresh()
     } catch (err) {
-      setError(err?.message || 'Unable to disconnect.')
+      setError(friendlyCalendarError(err, 'Unable to disconnect.'))
     } finally {
       setBusy(false)
     }
@@ -101,6 +122,7 @@ function GoogleCalendarSettings() {
     )
   }
 
+  // Connected only when the status API reports a real authorization.
   const connected = Boolean(status?.connected)
   const configured = status?.configured !== false
 
@@ -119,35 +141,35 @@ function GoogleCalendarSettings() {
       {error && <div className="settings-page__alert is-error">{error}</div>}
       {message && <div className="settings-page__alert is-success">{message}</div>}
 
-      {!configured && (
-        <p className="google-cal-settings__note">
-          Google Calendar is not configured on the server. Ask an admin to set
-          GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI, and
-          TOKEN_ENCRYPTION_KEY.
-        </p>
-      )}
-
-      <dl className="google-cal-settings__status">
-        <div>
-          <dt>Status</dt>
-          <dd>{connected ? 'Connected' : 'Not connected'}</dd>
-        </div>
-        {connected && (
-          <>
-            <div>
-              <dt>Account</dt>
-              <dd>{status.email || 'Google account'}</dd>
-            </div>
-            <div>
-              <dt>Last sync</dt>
-              <dd>
-                {status.last_sync_at || 'Never'}
-                {status.last_sync_status ? ` (${status.last_sync_status})` : ''}
-              </dd>
-            </div>
-          </>
+      <div className="google-cal-settings__status-row">
+        <span className="google-cal-settings__status-label">Status</span>
+        {connected ? (
+          <span className="google-cal-settings__badge is-connected">
+            <span className="google-cal-settings__badge-dot" aria-hidden="true" />
+            Connected
+          </span>
+        ) : (
+          <span className="google-cal-settings__badge is-disconnected">
+            Not connected
+          </span>
         )}
-      </dl>
+      </div>
+
+      {connected && (
+        <dl className="google-cal-settings__meta">
+          <div>
+            <dt>Account</dt>
+            <dd>{status.email || 'Google account'}</dd>
+          </div>
+          <div>
+            <dt>Last sync</dt>
+            <dd>
+              {status.last_sync_at || 'Never'}
+              {status.last_sync_status ? ` (${status.last_sync_status})` : ''}
+            </dd>
+          </div>
+        </dl>
+      )}
 
       <div className="google-cal-settings__actions">
         {!connected ? (

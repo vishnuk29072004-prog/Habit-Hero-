@@ -21,7 +21,7 @@ def _google_env(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setenv("GOOGLE_CLIENT_SECRET", "test-client-secret")
     monkeypatch.setenv(
         "GOOGLE_REDIRECT_URI",
-        "http://127.0.0.1:8000/api/v1/calendar/google/callback",
+        "http://127.0.0.1:8010/api/v1/calendar/google/callback",
     )
     monkeypatch.setenv("TOKEN_ENCRYPTION_KEY", FERNET_KEY)
     monkeypatch.setenv("FRONTEND_APP_URL", "http://127.0.0.1:5173")
@@ -98,6 +98,28 @@ def test_missing_credentials(client: TestClient, monkeypatch: pytest.MonkeyPatch
     headers = _auth(client, "gcal_nocred@example.com")
     res = client.get("/api/v1/calendar/google/connect", headers=headers)
     assert res.status_code == 503
+    detail = str(res.json().get("detail", ""))
+    assert "GOOGLE_CLIENT_ID" in detail
+
+
+def test_status_reports_missing_config_fields(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("GOOGLE_CLIENT_ID", "")
+    monkeypatch.setenv("GOOGLE_CLIENT_SECRET", "")
+    get_settings.cache_clear()
+    headers = _auth(client, "gcal_missing_fields@example.com")
+    res = client.get("/api/v1/calendar/google/status", headers=headers)
+    assert res.status_code == 200
+    body = res.json()
+    data = body.get("data") or body
+    assert data["configured"] is False
+    assert "GOOGLE_CLIENT_ID" in data["missing_config"]
+    assert "GOOGLE_CLIENT_SECRET" in data["missing_config"]
+    # Secrets must never appear in the payload.
+    dumped = str(data)
+    assert "test-client-secret" not in dumped
+    assert FERNET_KEY not in dumped
 
 
 def test_connect_returns_authorization_url(client: TestClient):

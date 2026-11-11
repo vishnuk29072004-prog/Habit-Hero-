@@ -23,6 +23,7 @@ from app.services.gemini_service import (
     GeminiInvalidResponseError,
     GeminiNotConfiguredError,
     GeminiRateLimitError,
+    GeminiUnavailableError,
 )
 
 # Cap prompt size while staying within journal list page_size limits.
@@ -179,6 +180,7 @@ def analyze_mood(
     except (
         GeminiNotConfiguredError,
         GeminiRateLimitError,
+        GeminiUnavailableError,
         GeminiInvalidResponseError,
         GeminiAPIError,
     ) as exc:

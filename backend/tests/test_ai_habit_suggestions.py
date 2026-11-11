@@ -14,6 +14,7 @@ from app.services.gemini_service import (
     GeminiAPIError,
     GeminiInvalidResponseError,
     GeminiRateLimitError,
+    GeminiUnavailableError,
 )
 
 
@@ -226,6 +227,27 @@ def test_gemini_timeout(client: TestClient, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(gemini_service, "generate_json", fake_json)
     res = client.post("/api/v1/ai/habit-suggestions", headers=headers, json={})
     assert res.status_code == 504
+    detail = res.json().get("detail") or res.json().get("message") or ""
+    assert "timed out" in str(detail).lower()
+
+
+def test_gemini_unavailable_high_demand(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("GEMINI_API_KEY", "test-key-not-real")
+    get_settings.cache_clear()
+    headers = _register_login(client, "ai_hab_unavail@example.com")
+
+    def fake_json(*args, **kwargs):  # noqa: ARG001
+        raise GeminiUnavailableError(
+            "Gemini is temporarily overloaded. Please try again in a moment."
+        )
+
+    monkeypatch.setattr(gemini_service, "generate_json", fake_json)
+    res = client.post("/api/v1/ai/habit-suggestions", headers=headers, json={})
+    assert res.status_code == 503
+    detail = res.json().get("detail") or res.json().get("message") or ""
+    assert "overloaded" in str(detail).lower() or "high demand" in str(detail).lower()
 
 
 def test_gemini_api_failure(client: TestClient, monkeypatch: pytest.MonkeyPatch):

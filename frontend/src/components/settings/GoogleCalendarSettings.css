@@ -7,35 +7,73 @@
 }
 
 .google-cal-settings__head p {
-  margin: 0 0 12px;
+  margin: 0 0 16px;
   color: var(--secondary-text);
   font-size: 0.92rem;
   line-height: 1.45;
   max-width: 40rem;
 }
 
-.google-cal-settings__note {
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: color-mix(in srgb, #ca8a04 12%, transparent);
-  border: 1px solid color-mix(in srgb, #ca8a04 35%, transparent);
-  font-size: 0.9rem;
-}
-
-.google-cal-settings__status {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 10px 16px;
+.google-cal-settings__status-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
   margin: 0 0 14px;
 }
 
-.google-cal-settings__status dt {
+.google-cal-settings__status-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--secondary-text);
+}
+
+.google-cal-settings__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.google-cal-settings__badge.is-connected {
+  color: #166534;
+  background: color-mix(in srgb, #22c55e 16%, transparent);
+  border: 1px solid color-mix(in srgb, #16a34a 40%, transparent);
+}
+
+.google-cal-settings__badge.is-disconnected {
+  color: var(--secondary-text);
+  background: color-mix(in srgb, var(--secondary-text) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--secondary-text) 18%, transparent);
+}
+
+.google-cal-settings__badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #22c55e 28%, transparent);
+}
+
+.google-cal-settings__meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px 16px;
+  margin: 0 0 16px;
+}
+
+.google-cal-settings__meta dt {
   font-size: 0.78rem;
   color: var(--secondary-text);
   margin-bottom: 2px;
 }
 
-.google-cal-settings__status dd {
+.google-cal-settings__meta dd {
   margin: 0;
   font-size: 0.95rem;
   color: var(--primary-text);
@@ -52,4 +90,12 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+}
+
+@media (max-width: 560px) {
+  .google-cal-settings__actions .btn-primary,
+  .google-cal-settings__actions .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
 }

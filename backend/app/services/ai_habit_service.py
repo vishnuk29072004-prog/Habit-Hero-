@@ -23,6 +23,7 @@ from app.services.gemini_service import (
     GeminiInvalidResponseError,
     GeminiNotConfiguredError,
     GeminiRateLimitError,
+    GeminiUnavailableError,
 )
 
 
@@ -146,9 +147,20 @@ def _map_gemini_error(exc: Exception) -> HTTPException:
             detail="AI features are not configured. Set GEMINI_API_KEY on the server.",
         )
     if isinstance(exc, GeminiRateLimitError):
+        detail = str(exc).strip() or (
+            "AI rate limit reached. Please wait a moment and try again."
+        )
         return HTTPException(
             status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail="AI rate limit reached. Please try again later.",
+            detail=detail,
+        )
+    if isinstance(exc, GeminiUnavailableError):
+        return HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=(
+                "Google Gemini is temporarily overloaded (high demand). "
+                "Please wait a moment and try again."
+            ),
         )
     if isinstance(exc, GeminiInvalidResponseError):
         return HTTPException(
@@ -157,10 +169,13 @@ def _map_gemini_error(exc: Exception) -> HTTPException:
         )
     if isinstance(exc, GeminiAPIError):
         msg = str(exc)
-        if "timed out" in msg.lower():
+        if "timed out" in msg.lower() or "deadline" in msg.lower():
             return HTTPException(
                 status_code=status.HTTP_504_GATEWAY_TIMEOUT,
-                detail="AI request timed out. Please try again in a moment.",
+                detail=(
+                    "AI request timed out waiting for Google Gemini. "
+                    "This is usually temporary upstream latency — please try again."
+                ),
             )
         return HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
@@ -206,6 +221,7 @@ def generate_habit_suggestions(
     except (
         GeminiNotConfiguredError,
         GeminiRateLimitError,
+        GeminiUnavailableError,
         GeminiInvalidResponseError,
         GeminiAPIError,
     ) as exc:
